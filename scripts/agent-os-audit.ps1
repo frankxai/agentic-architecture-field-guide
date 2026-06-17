@@ -26,7 +26,38 @@ function Test-CommandVersion {
   param(
     [string]$Name,
     [string]$Command,
-    [string[]]$Args = @("--version"),
+    [string[]]$VersionArgs = @("--version"),
+    [string]$Source = "",
+    [int]$TimeoutSec = 8
+  )
+
+  $cmd = Get-Command $Command -ErrorAction SilentlyContinue
+  if (-not $cmd) {
+    return New-Result -Name $Name -Status "missing" -Detail "$Command not found" -Command $Command -Source $Source
+  }
+
+  $executable = $Command
+  $executableArgs = $VersionArgs
+  $job = Start-Job -ScriptBlock {
+    & $using:executable @using:executableArgs 2>&1 | Select-Object -First 4
+  }
+
+  if (-not (Wait-Job $job -Timeout $TimeoutSec)) {
+    Stop-Job $job | Out-Null
+    Remove-Job $job | Out-Null
+    return New-Result -Name $Name -Status "warn" -Detail "found at $($cmd.Source), but version command timed out" -Command "$Command $($VersionArgs -join ' ')" -Source $Source
+  }
+
+  $output = (Receive-Job $job) -join " "
+  Remove-Job $job | Out-Null
+  if (-not $output) { $output = "installed at $($cmd.Source)" }
+  New-Result -Name $Name -Status "ok" -Detail $output.Trim() -Command "$Command $($VersionArgs -join ' ')" -Source $Source
+}
+
+function Test-CommandPresence {
+  param(
+    [string]$Name,
+    [string]$Command,
     [string]$Source = ""
   )
 
@@ -35,9 +66,8 @@ function Test-CommandVersion {
     return New-Result -Name $Name -Status "missing" -Detail "$Command not found" -Command $Command -Source $Source
   }
 
-  $output = (& $Command @Args 2>&1 | Select-Object -First 4) -join " "
-  if (-not $output) { $output = "installed at $($cmd.Source)" }
-  New-Result -Name $Name -Status "ok" -Detail $output.Trim() -Command "$Command $($Args -join ' ')" -Source $Source
+  $location = if ($cmd.Source) { $cmd.Source } else { $cmd.Definition }
+  New-Result -Name $Name -Status "ok" -Detail "found at $location" -Command $Command -Source $Source
 }
 
 function Test-Http {
@@ -76,25 +106,47 @@ function Test-PythonImport {
   New-Result -Name $Name -Status "missing" -Detail $output.Trim() -Command "python -c import $Module" -Source $Source
 }
 
+function Test-PythonLauncherImport {
+  param(
+    [string]$Name,
+    [string]$Module,
+    [string]$PythonVersion = "3.13",
+    [string]$Source = ""
+  )
+
+  $py = Get-Command py -ErrorAction SilentlyContinue
+  if (-not $py) {
+    return Test-PythonImport -Name $Name -Module $Module -Source $Source
+  }
+
+  $code = "import importlib.metadata as m; import $Module; print(m.version('$Module'))"
+  $output = (& py "-$PythonVersion" -c $code 2>&1 | Select-Object -First 4) -join " "
+  if ($LASTEXITCODE -eq 0) {
+    return New-Result -Name $Name -Status "ok" -Detail $output.Trim() -Command "py -$PythonVersion -c import $Module" -Source $Source
+  }
+
+  New-Result -Name $Name -Status "missing" -Detail $output.Trim() -Command "py -$PythonVersion -c import $Module" -Source $Source
+}
+
 $results = @()
-$results += Test-CommandVersion -Name "Hermes Agent CLI" -Command "hermes" -Args @("version") -Source "https://github.com/NousResearch/hermes-agent"
+$results += Test-CommandVersion -Name "Hermes Agent CLI" -Command "hermes" -VersionArgs @("version") -Source "https://github.com/NousResearch/hermes-agent" -TimeoutSec 30
 $results += Test-Http -Name "Hermes dashboard" -Url "http://127.0.0.1:9119/sessions" -Source "https://hermes-agent.nousresearch.com/docs/"
-$results += Test-CommandVersion -Name "OpenClaw CLI" -Command "openclaw" -Args @("--version") -Source "https://docs.openclaw.ai/"
+$results += Test-CommandVersion -Name "OpenClaw CLI" -Command "openclaw" -VersionArgs @("--version") -Source "https://docs.openclaw.ai/"
 $results += Test-Http -Name "OpenClaw dashboard" -Url "http://127.0.0.1:18789/" -Source "https://docs.openclaw.ai/"
-$results += Test-PythonImport -Name "DeepAgents Python package" -Module "deepagents" -Source "https://docs.langchain.com/oss/python/deepagents/overview"
-$results += Test-CommandVersion -Name "Deep Agents Code CLI" -Command "dcode" -Args @("--version") -Source "https://docs.langchain.com/oss/python/deepagents/code/overview"
-$results += Test-CommandVersion -Name "Claude Code CLI" -Command "claude" -Args @("--version") -Source "https://code.claude.com/docs/"
-$results += Test-CommandVersion -Name "Codex CLI" -Command "codex" -Args @("--version") -Source "https://developers.openai.com/codex/"
-$results += Test-CommandVersion -Name "Grok wrapper" -Command "gr" -Args @("--version") -Source "local shell profile"
-$results += Test-CommandVersion -Name "Antigravity wrapper" -Command "agy-run" -Args @("--version") -Source "local shell profile"
-$results += Test-CommandVersion -Name "Node.js" -Command "node" -Args @("--version")
-$results += Test-CommandVersion -Name "Python" -Command "python" -Args @("--version")
-$results += Test-CommandVersion -Name "Git" -Command "git" -Args @("--version")
-$results += Test-CommandVersion -Name "ripgrep" -Command "rg" -Args @("--version")
-$results += Test-CommandVersion -Name "Docker" -Command "docker" -Args @("--version")
-$results += Test-CommandVersion -Name "Railway CLI" -Command "railway" -Args @("--version") -Source "https://docs.railway.com/"
-$results += Test-CommandVersion -Name "Vercel CLI" -Command "vercel" -Args @("--version") -Source "https://vercel.com/docs/cli"
-$results += Test-CommandVersion -Name "Cloudflare Wrangler" -Command "wrangler" -Args @("--version") -Source "https://developers.cloudflare.com/workers/wrangler/"
+$results += Test-PythonLauncherImport -Name "DeepAgents Python package" -Module "deepagents" -Source "https://docs.langchain.com/oss/python/deepagents/overview"
+$results += Test-CommandVersion -Name "Deep Agents Code CLI" -Command "dcode" -VersionArgs @("--version") -Source "https://docs.langchain.com/oss/python/deepagents/code/overview" -TimeoutSec 30
+$results += Test-CommandVersion -Name "Claude Code CLI" -Command "claude" -VersionArgs @("--version") -Source "https://code.claude.com/docs/"
+$results += Test-CommandVersion -Name "Codex CLI" -Command "codex" -VersionArgs @("--version") -Source "https://developers.openai.com/codex/"
+$results += Test-CommandPresence -Name "Grok wrapper" -Command "gr" -Source "local shell profile"
+$results += Test-CommandPresence -Name "Antigravity wrapper" -Command "agy-run" -Source "local shell profile"
+$results += Test-CommandVersion -Name "Node.js" -Command "node" -VersionArgs @("--version")
+$results += Test-CommandVersion -Name "Python" -Command "python" -VersionArgs @("--version")
+$results += Test-CommandVersion -Name "Git" -Command "git" -VersionArgs @("--version")
+$results += Test-CommandVersion -Name "ripgrep" -Command "rg" -VersionArgs @("--version") -TimeoutSec 20
+$results += Test-CommandVersion -Name "Docker" -Command "docker" -VersionArgs @("--version")
+$results += Test-CommandVersion -Name "Railway CLI" -Command "railway" -VersionArgs @("--version") -Source "https://docs.railway.com/"
+$results += Test-CommandVersion -Name "Vercel CLI" -Command "vercel" -VersionArgs @("--version") -Source "https://vercel.com/docs/cli"
+$results += Test-CommandVersion -Name "Cloudflare Wrangler" -Command "wrangler" -VersionArgs @("--version") -Source "https://developers.cloudflare.com/workers/wrangler/"
 
 $mcpDoctor = Get-Command "mcp-doctor" -ErrorAction SilentlyContinue
 if ($mcpDoctor) {
