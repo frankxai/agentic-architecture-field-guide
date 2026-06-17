@@ -3,9 +3,15 @@ $root = Split-Path $PSScriptRoot -Parent
 $required = @(
   "README.md",
   "docs/runtime-decision-matrix.md",
+  "docs/reference-architectures.md",
+  "docs/founder-operating-models.md",
   "docs/local-install-audit.md",
   "docs/security-boundaries.md",
+  "docs/adr-template.md",
+  "docs/glossary.md",
+  "docs/roadmap.md",
   "docs/sources.md",
+  "CONTRIBUTING.md",
   "scripts/agent-os-audit.ps1"
 )
 

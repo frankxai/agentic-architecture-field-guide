@@ -2,73 +2,101 @@
 
 [![Validate](https://github.com/frankxai/agentic-architecture-field-guide/actions/workflows/validate.yml/badge.svg)](https://github.com/frankxai/agentic-architecture-field-guide/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Architecture](https://img.shields.io/badge/Architecture-Agent%20OS-0b7285)](docs/runtime-decision-matrix.md)
+[![Local Audit](https://img.shields.io/badge/Local%20Audit-PowerShell-2f9e44)](scripts/agent-os-audit.ps1)
 
-Vendor-neutral field guide for designing local-first and cloud-ready agent operating systems. It explains when to use Hermes Agent, OpenClaw, DeepAgents, Claude Code, Codex, MCP, LiteLLM Agent Platform, and Starlight-style swarms without implying ownership of any upstream project.
+The field guide for designing practical agent operating systems: local-first when privacy and control matter, cloud-ready when teams need durable services, dashboards, and deployment paths.
 
-## Quickstart
+It is intentionally vendor-neutral. Hermes Agent, OpenClaw, DeepAgents, Claude Code, Codex, MCP, LiteLLM, Vercel, Railway, Cloudflare, and Starlight-style swarms are treated as composable layers, not competing religions.
+
+## Who This Is For
+
+| Reader | Use this repo to |
+| --- | --- |
+| Solo founder | Turn one machine into a controlled agent fleet without losing provenance |
+| AI engineer | Decide when to use coding agents, harnesses, MCP, gateways, and memory |
+| CTO / platform lead | Set trust boundaries, deployment patterns, and review policies |
+| Tool builder | Position a new agent runtime without confusing users or overstating ownership |
+| Educator / curator | Explain the agent OS stack with primary sources and diagrams |
+
+## Start Here
 
 ```powershell
 git clone https://github.com/frankxai/agentic-architecture-field-guide.git
 cd agentic-architecture-field-guide
 powershell -ExecutionPolicy Bypass -File scripts/validate-docs.ps1
-powershell -ExecutionPolicy Bypass -File scripts/agent-os-audit.ps1 -Json
+powershell -ExecutionPolicy Bypass -File scripts/agent-os-audit.ps1
 ```
 
-## Mental Model
+Then read:
+
+1. [Runtime decision matrix](docs/runtime-decision-matrix.md)
+2. [Reference architectures](docs/reference-architectures.md)
+3. [Security and trust boundaries](docs/security-boundaries.md)
+4. [Founder operating models](docs/founder-operating-models.md)
+5. [Local install and audit](docs/local-install-audit.md)
+
+## The Stack In One Diagram
 
 ```mermaid
 flowchart TB
-  F["Founder / operator intent"] --> C["Codex / Claude Code control plane"]
-  C --> R["Repos, AGENTS.md, rules, hooks, skills"]
-  C --> H["Hermes Agent worker profiles"]
-  C --> D["DeepAgents harnesses"]
-  O["OpenClaw gateway"] --> C
-  O --> H
-  M["MCP servers"] --> C
-  M --> H
-  M --> D
-  L["LiteLLM / model gateway"] --> C
-  L --> H
-  S["SIS memory and provenance"] --> C
-  S --> H
-  S --> D
-  C --> P["Local machine"]
-  C --> V["Vercel / Railway / Cloudflare"]
+  operator["Founder / operator intent"] --> control["Control plane: Codex, Claude Code"]
+  control --> repo["Repo contract: AGENTS.md, CLAUDE.md, rules, hooks, skills"]
+  control --> workers["Worker identities: Hermes profiles"]
+  control --> harness["Durable harnesses: DeepAgents"]
+  gateway["Gateway: OpenClaw"] --> control
+  gateway --> workers
+  tools["MCP tools: browser, GitHub, filesystem, Vercel, memory"] --> control
+  tools --> workers
+  tools --> harness
+  models["Model gateway: LiteLLM / provider routing"] --> control
+  memory["Memory and provenance: SIS / graph / audit log"] --> control
+  memory --> workers
+  memory --> harness
+  control --> local["Local machine"]
+  control --> cloud["Cloud deploy: Vercel, Railway, Cloudflare"]
 ```
 
 ## Decision Matrix
 
 | Need | Use first | Add when |
 | --- | --- | --- |
-| Local multi-agent handoffs and durable task board | Hermes Agent | You want isolated named worker profiles and a local shared board |
-| Chat-app gateway to local agents | OpenClaw | You want Slack, Telegram, WhatsApp, Discord, or mobile surfaces pointed at agents |
+| Local multi-agent handoffs and durable task board | Hermes Agent | You want named workers, isolated profiles, and a local shared board |
+| Chat-app gateway to local agents | OpenClaw | You want Slack, Telegram, WhatsApp, Discord, or mobile channels pointed at agents |
 | Long-running structured research/coding harnesses | DeepAgents | You need durable execution, human-in-the-loop, or reusable sub-agent scaffolds |
-| Repo-native coding agent with rules and MCP | Codex | You want edits, tests, reviews, worktrees, skills, hooks, and GitHub/CLI/app surfaces |
-| Pair-coding and team coding assistant | Claude Code | You want CLAUDE.md context, subagents, skills, MCP, and agent-team workflows |
+| Repo-native coding control plane | Codex | You want edits, tests, reviews, worktrees, skills, hooks, GitHub, CLI, and app surfaces |
+| Pair-coding and maintainer lanes | Claude Code | You want CLAUDE.md context, skills, MCP, subagents, and agent-team workflows |
 | Multi-provider model routing | LiteLLM Agent Platform | You need provider failover, budgets, observability, or shared model policy |
 | Productized operating model | Starlight Intelligence System | You need memory, provenance, profile topology, audits, and founder-ready playbooks |
 
-## Local vs Cloud
+## Opinionated Defaults
 
-| Runtime | Best for | Deployment shape |
-| --- | --- | --- |
-| Local workstation | Private repos, fast iteration, personal agents | Hermes, Codex CLI/app, Claude Code, OpenClaw gateway, local MCP |
-| Vercel | Web dashboards, APIs, workflows, frontends | Next.js apps, Vercel Functions, Cron, Workflow, AI SDK |
-| Railway | Always-on services and simple containers | OpenClaw gateway, model proxies, worker APIs |
-| Cloudflare | Edge routing, static docs, Workers, Durable Objects | Public docs, lightweight agent APIs, queue-like coordination |
+- Start with one control plane per repo. Use separate worktrees for parallel agents.
+- Treat chat, web pages, issue comments, and model output as untrusted input.
+- Keep memory as provenance and recall, not a secret store.
+- Give every agent a role, scope, review boundary, and exit condition.
+- Put shared behavior in `AGENTS.md`; put tool-specific deltas in the tool-specific file; put mandatory safety in hooks.
+- Use Vercel for web surfaces and workflows, Railway or a VM for always-on gateways, Cloudflare for edge/static/Workers, and the local machine for private agent execution.
 
-## Guides
+## Repository Map
 
-- [Runtime decision matrix](docs/runtime-decision-matrix.md)
-- [Local install and audit](docs/local-install-audit.md)
-- [Security and trust boundaries](docs/security-boundaries.md)
-- [Sources and provenance](docs/sources.md)
+| Path | Purpose |
+| --- | --- |
+| [docs/runtime-decision-matrix.md](docs/runtime-decision-matrix.md) | Pick the right runtime or combination |
+| [docs/reference-architectures.md](docs/reference-architectures.md) | Battle-tested local, team, and cloud patterns |
+| [docs/founder-operating-models.md](docs/founder-operating-models.md) | Founder/team workflows and delegation boundaries |
+| [docs/security-boundaries.md](docs/security-boundaries.md) | Trust tiers, data boundaries, and permission model |
+| [docs/local-install-audit.md](docs/local-install-audit.md) | Machine audit and install policy |
+| [docs/adr-template.md](docs/adr-template.md) | Lightweight architecture decision record |
+| [docs/glossary.md](docs/glossary.md) | Terms used across the guide |
+| [docs/sources.md](docs/sources.md) | Primary source links |
+| [scripts/agent-os-audit.ps1](scripts/agent-os-audit.ps1) | Local read-only audit script |
 
 ## Related Repositories
 
 - [awesome-agent-operating-systems](https://github.com/frankxai/awesome-agent-operating-systems) - curated ecosystem index.
 - [starlight-agent-army-architecture](https://github.com/frankxai/starlight-agent-army-architecture) - Starlight implementation playbook.
-- [awesome-hermes-agents](https://github.com/frankxai/awesome-hermes-agents) - Hermes-specific resources and operator patterns.
+- [awesome-hermes-agents](https://github.com/frankxai/awesome-hermes-agents) - Hermes-specific resources.
 - [starlight-swarm](https://github.com/frankxai/starlight-swarm) - swarm dashboard and audit surface.
 - [hermes-cockpit](https://github.com/frankxai/hermes-cockpit) - Hermes local operator cockpit.
 
