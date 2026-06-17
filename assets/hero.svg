@@ -1,0 +1,51 @@
+<svg width="1600" height="500" viewBox="0 0 1600 500" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Agentic Architecture Field Guide</title>
+  <desc id="desc">A dark systems architecture hero banner showing local and cloud agent operating system layers.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#071114"/>
+      <stop offset="0.52" stop-color="#0B1B1F"/>
+      <stop offset="1" stop-color="#10231F"/>
+    </linearGradient>
+    <linearGradient id="line" x1="240" y1="120" x2="1360" y2="380" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#40C4AA"/>
+      <stop offset="0.5" stop-color="#66D9EF"/>
+      <stop offset="1" stop-color="#9BE564"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1600" height="500" rx="28" fill="url(#bg)"/>
+  <g opacity="0.18">
+    <path d="M0 92H1600M0 188H1600M0 284H1600M0 380H1600" stroke="#B8F7E0"/>
+    <path d="M180 0V500M380 0V500M580 0V500M780 0V500M980 0V500M1180 0V500M1380 0V500" stroke="#B8F7E0"/>
+  </g>
+  <g stroke="url(#line)" stroke-width="3" opacity="0.8">
+    <path d="M305 316C430 205 546 201 650 277C766 362 880 342 1002 235C1111 140 1236 142 1328 222"/>
+    <path d="M356 183C480 255 590 247 696 176C797 108 909 118 1008 197C1114 282 1225 294 1340 330" opacity="0.5"/>
+  </g>
+  <g filter="url(#glow)">
+    <circle cx="305" cy="316" r="12" fill="#40C4AA"/>
+    <circle cx="650" cy="277" r="12" fill="#66D9EF"/>
+    <circle cx="1002" cy="235" r="12" fill="#9BE564"/>
+    <circle cx="1328" cy="222" r="12" fill="#40C4AA"/>
+  </g>
+  <g>
+    <rect x="250" y="130" width="188" height="74" rx="12" fill="#102A2F" stroke="#40C4AA" stroke-width="2"/>
+    <rect x="520" y="96" width="210" height="74" rx="12" fill="#102A2F" stroke="#66D9EF" stroke-width="2"/>
+    <rect x="842" y="125" width="210" height="74" rx="12" fill="#102A2F" stroke="#9BE564" stroke-width="2"/>
+    <rect x="1152" y="105" width="210" height="74" rx="12" fill="#102A2F" stroke="#40C4AA" stroke-width="2"/>
+  </g>
+  <text x="110" y="265" fill="#F4FFF9" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="64" font-weight="800" letter-spacing="0">Agentic Architecture</text>
+  <text x="112" y="328" fill="#B8F7E0" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="42" font-weight="600" letter-spacing="0">Field Guide</text>
+  <text x="114" y="382" fill="#D8E8E3" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24" letter-spacing="0">Local-first and cloud-ready patterns for agent operating systems</text>
+  <text x="284" y="174" fill="#D9FFF4" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="700">LOCAL</text>
+  <text x="552" y="140" fill="#D9FFF4" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="700">CONTROL</text>
+  <text x="876" y="169" fill="#D9FFF4" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="700">MEMORY</text>
+  <text x="1186" y="149" fill="#D9FFF4" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="700">CLOUD</text>
+</svg>

@@ -1,11 +1,27 @@
-# Agentic Architecture Field Guide
+<p align="center">
+  <img src="assets/hero.svg" alt="Agentic Architecture Field Guide" width="100%">
+</p>
+
+<h1 align="center">Agentic Architecture Field Guide</h1>
+
+<p align="center">
+  <strong>Design local-first and cloud-ready agent operating systems with clear runtime choices, trust boundaries, and deployment paths.</strong>
+</p>
+
+<p align="center">
+  <a href="#start-here">Start Here</a> ·
+  <a href="docs/reference-architectures.md">Reference Architectures</a> ·
+  <a href="docs/runtime-decision-matrix.md">Decision Matrix</a> ·
+  <a href="scripts/agent-os-audit.ps1">Local Audit</a> ·
+  <a href="docs/sources.md">Sources</a>
+</p>
 
 [![Validate](https://github.com/frankxai/agentic-architecture-field-guide/actions/workflows/validate.yml/badge.svg)](https://github.com/frankxai/agentic-architecture-field-guide/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Architecture](https://img.shields.io/badge/Architecture-Agent%20OS-0b7285)](docs/runtime-decision-matrix.md)
 [![Local Audit](https://img.shields.io/badge/Local%20Audit-PowerShell-2f9e44)](scripts/agent-os-audit.ps1)
 
-The field guide for designing practical agent operating systems: local-first when privacy and control matter, cloud-ready when teams need durable services, dashboards, and deployment paths.
+> The field guide for designing practical agent operating systems: local-first when privacy and control matter, cloud-ready when teams need durable services, dashboards, and deployment paths.
 
 It is intentionally vendor-neutral. Hermes Agent, OpenClaw, DeepAgents, Claude Code, Codex, MCP, LiteLLM, Vercel, Railway, Cloudflare, and Starlight-style swarms are treated as composable layers, not competing religions.
 
@@ -20,6 +36,14 @@ It is intentionally vendor-neutral. Hermes Agent, OpenClaw, DeepAgents, Claude C
 | Educator / curator | Explain the agent OS stack with primary sources and diagrams |
 
 ## Start Here
+
+| If you have... | Read |
+| --- | --- |
+| 5 minutes | [Runtime decision matrix](docs/runtime-decision-matrix.md) |
+| 20 minutes | [Reference architectures](docs/reference-architectures.md) |
+| A machine to audit | [Local install and audit](docs/local-install-audit.md) |
+| A team/fleet to design | [Founder operating models](docs/founder-operating-models.md) |
+| A security concern | [Security and trust boundaries](docs/security-boundaries.md) |
 
 ```powershell
 git clone https://github.com/frankxai/agentic-architecture-field-guide.git
@@ -77,6 +101,13 @@ flowchart TB
 - Give every agent a role, scope, review boundary, and exit condition.
 - Put shared behavior in `AGENTS.md`; put tool-specific deltas in the tool-specific file; put mandatory safety in hooks.
 - Use Vercel for web surfaces and workflows, Railway or a VM for always-on gateways, Cloudflare for edge/static/Workers, and the local machine for private agent execution.
+
+<details>
+<summary><strong>What makes this guide different?</strong></summary>
+
+Most agent docs explain one tool. This guide explains how tools fit together: who owns repo writes, which runtime gets long-running work, where chat gateways belong, what memory may store, and which cloud target fits each surface.
+
+</details>
 
 ## Repository Map
 
