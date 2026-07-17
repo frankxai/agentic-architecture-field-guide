@@ -4,10 +4,21 @@ This repo is part of the FrankX / Starlight / Arcanea agent estate.
 
 ## Classification
 
-- Repo: $title
-- Class: $Classification
-- Default health command: $HealthCommand
-- Remote: $Remote
+- Repo: agentic-architecture-field-guide
+- Class: template-study
+- Default health command: `git status` (local audit: `scripts/agent-os-audit.ps1`)
+- Remote: https://github.com/frankxai/agentic-architecture-field-guide.git
+
+## What This Repo Is
+
+Vendor-neutral field guide for designing local-first and cloud-ready agent operating systems —
+runtime decision matrix, reference architectures, trust boundaries, deployment paths. Treats
+Hermes Agent, OpenClaw, DeepAgents, Claude Code, Codex, MCP, LiteLLM, Vercel, Railway,
+Cloudflare, and Starlight-style swarms as composable layers, not competing products. Docs live
+in `docs/` (runtime-decision-matrix, reference-architectures, local-install-audit,
+founder-operating-models, security-boundaries, sources); `scripts/agent-os-audit.ps1` is the
+local PowerShell audit tool. Sibling repo `starlight-agent-army-architecture` is the Starlight
+implementation of the patterns described here.
 
 ## Agent Rules
 
