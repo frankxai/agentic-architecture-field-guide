@@ -50,3 +50,6 @@ For any site, app, landing page, dashboard, visual identity, brand, motion, medi
 
 When motion, scroll, generated media, GIF/video, or premium polish matters, route through the Motion Design Studio plugin/skills and verify the result visually.
 
+## Product and distribution contract
+
+Read product.manifest.yaml, marketplace.listing.yaml and docs/DISTRIBUTION.md before edition or release work. Keep the public guide vendor-neutral and source-grounded. Commercial value may add editable implementation artifacts and team workflows, but must not hide core safety knowledge or convert unverified claims into authority. Follow docs/media/media-policy.md. Public listing, pricing, vendor-relationship claims and production promotion require explicit authorization.
