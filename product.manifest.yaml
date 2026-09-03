@@ -1,0 +1,25 @@
+schema_version: "1.0.0"
+product_id: product_agentic_architecture_field_guide
+sku_id: sku_agentic_architecture_field_guide_v1
+name: Agentic Architecture Field Guide
+brand_id: brand_starlight_intelligence
+repository: frankxai/agentic-architecture-field-guide
+status: release_candidate
+format: open_guide_and_professional_pack
+buyer:
+  segment: solo_founders_ai_engineers_ctos_and_platform_leads
+  job: choose_and_document_an_agent_architecture_without_vendor_confusion_or_unsafe_boundaries
+promise:
+  outcome: a_source_grounded_architecture_decision_and_auditable_implementation_path
+  boundary: vendor_neutral_guidance_not_a_managed_runtime_or_security_guarantee
+activation_event: completed_architecture_decision_and_local_audit
+commercial:
+  price_state: decision_required
+  experiment_band: "professional pack 39-149; team license 299-999; not a public price decision"
+  license: MIT_for_public_guide_commercial_terms_for_professional_assets
+rights:
+  state: primary_source_and_diagram_review_required_per_release
+channels: [github, owned_storefront, gumroad, vercel_templates]
+maintenance:
+  cadence: monthly_source_freshness_and_on_material_vendor_change
+stop_rule: do_not_sell_a_professional_pack_until_examples_and_audit_outputs_are_independently_verified
