@@ -134,3 +134,7 @@ Most agent docs explain one tool. This guide explains how tools fit together: wh
 ## Provenance
 
 Hermes Agent is by Nous Research, OpenClaw is by the OpenClaw project, DeepAgents is by LangChain, Claude Code is by Anthropic, and Codex is by OpenAI. This repository is an independent architecture guide that links to upstream sources and keeps Starlight-specific opinions clearly labeled.
+
+## Quality-first orchestration candidate
+
+See the [task-routing and evaluation guide](docs/quality-first-orchestration.md) for the runnable reference kit and evidence requirements.
