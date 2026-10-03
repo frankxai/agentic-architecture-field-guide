@@ -14,3 +14,12 @@ The repository stays a useful, source-grounded MIT field guide. Commercial editi
 The professional pack requires at least one complete example that starts with constraints and ends with a reviewed architecture decision, threat boundary, deployment plan, cost model, rollback and evidence receipt. Vendor facts require primary-source links and last-verified dates.
 
 GitHub remains the canonical public guide. The owned offer page remains the canonical commercial promise. Marketplaces may distribute the professional files only from the same version and listing manifest.
+
+## Current implementation example
+
+The public [architecture proof kit](architecture-proof-kit.md) provides one
+complete illustrative client-brief decision and a local report tool. Its editable
+JSON, trust boundaries, failure plan, cost model, export and rollback remain MIT.
+It is a free proof contribution. The agent workflow is specified, not deployed;
+independent runtime review and one real external architecture result remain open.
+Do not infer that the professional pack is ready for sale from this example.
