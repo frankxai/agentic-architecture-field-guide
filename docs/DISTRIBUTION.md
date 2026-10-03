@@ -2,6 +2,10 @@
 
 The repository stays a useful, source-grounded MIT field guide. Commercial editions deepen implementation value without withholding the core architecture truth.
 
+## Free activation example
+
+The [decision-to-release worksheet](worksheets/decision-to-release.md) and [completed illustrative example](worksheets/worked-example.md) are public MIT assets. They help a reader connect one user job to an architecture decision, source support, action boundaries, failure checks, cost completeness and an honest handoff. No purchase or email is required. The example labels every implementation test as planned; it is not a paid-pack verification receipt.
+
 ## Editions
 
 - Public guide: decision matrix, reference architectures, trust boundaries and local audit.
@@ -14,3 +18,4 @@ The repository stays a useful, source-grounded MIT field guide. Commercial editi
 The professional pack requires at least one complete example that starts with constraints and ends with a reviewed architecture decision, threat boundary, deployment plan, cost model, rollback and evidence receipt. Vendor facts require primary-source links and last-verified dates.
 
 GitHub remains the canonical public guide. The owned offer page remains the canonical commercial promise. Marketplaces may distribute the professional files only from the same version and listing manifest.
+
