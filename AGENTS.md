@@ -38,6 +38,23 @@ implementation of the patterns described here.
 
 Summarize changed files, validation run, risks, and any follow-up needed.
 
+## Outcome-first delivery
+
+Before substantial work, name the reader's job, current product decision, owning
+issue, exact base revision, usable output, acceptance, budget and stop condition.
+Reuse an existing candidate before starting a competing implementation. Read
+`docs/architecture-proof-kit.md` for the local outcome rule and editable example.
+
+Count failed attempts, retries and all human review time when comparing cost per
+accepted result. Keep assumptions, illustrative fixtures, declared observations
+and independently inspected results distinct. A report cannot certify itself.
+Each slice should leave a reusable example, correction or synthetic fixture that
+helps another practitioner. Preserve the free safety and MIT boundaries.
+
+For review-tool changes, run `node --test scripts/architecture-review.test.mjs`
+and generate the example packet. Retain the existing documentation gate.
+Portfolio policy and WIP limits remain with reviewed `frankxai/agentic-ops`.
+
 ## Design Taste Kernel
 
 For any site, app, landing page, dashboard, visual identity, brand, motion, media, social, or frontend task, apply the shared Design Taste Kernel before handoff:

@@ -41,6 +41,7 @@ It is intentionally vendor-neutral. Hermes Agent, OpenClaw, DeepAgents, Claude C
 | --- | --- |
 | 5 minutes | [Runtime decision matrix](docs/runtime-decision-matrix.md) |
 | 20 minutes | [Reference architectures](docs/reference-architectures.md) |
+| A client rollout to review | [Architecture proof kit](docs/architecture-proof-kit.md) |
 | A machine to audit | [Local install and audit](docs/local-install-audit.md) |
 | A team/fleet to design | [Founder operating models](docs/founder-operating-models.md) |
 | A decision to document and test | [Free decision-to-release worksheet](docs/worksheets/decision-to-release.md) and [completed example](docs/worksheets/worked-example.md) |
@@ -120,6 +121,9 @@ Most agent docs explain one tool. This guide explains how tools fit together: wh
 | [docs/security-boundaries.md](docs/security-boundaries.md) | Trust tiers, data boundaries, and permission model |
 | [docs/local-install-audit.md](docs/local-install-audit.md) | Machine audit and install policy |
 | [docs/adr-template.md](docs/adr-template.md) | Lightweight architecture decision record |
+| [docs/architecture-proof-kit.md](docs/architecture-proof-kit.md) | Editable decision, failure plan and accepted-result cost report |
+| [examples/consultant-brief/](examples/consultant-brief/README.md) | Complete illustrative client-brief architecture decision |
+| [scripts/architecture-review.mjs](scripts/architecture-review.mjs) | Local report tool; no install, API key or external actions |
 | [docs/glossary.md](docs/glossary.md) | Terms used across the guide |
 | [docs/sources.md](docs/sources.md) | Primary source links |
 | [scripts/agent-os-audit.ps1](scripts/agent-os-audit.ps1) | Local read-only audit script |
