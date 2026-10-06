@@ -44,6 +44,7 @@ It is intentionally vendor-neutral. Hermes Agent, OpenClaw, DeepAgents, Claude C
 | A client rollout to review | [Architecture proof kit](docs/architecture-proof-kit.md) |
 | A machine to audit | [Local install and audit](docs/local-install-audit.md) |
 | A team/fleet to design | [Founder operating models](docs/founder-operating-models.md) |
+| A decision to document and test | [Free decision-to-release worksheet](docs/worksheets/decision-to-release.md) and [completed example](docs/worksheets/worked-example.md) |
 | A security concern | [Security and trust boundaries](docs/security-boundaries.md) |
 
 ```powershell
@@ -142,3 +143,4 @@ Hermes Agent is by Nous Research, OpenClaw is by the OpenClaw project, DeepAgent
 ## Quality-first orchestration candidate
 
 See the [task-routing and evaluation guide](docs/quality-first-orchestration.md) for the runnable reference kit and evidence requirements.
+
